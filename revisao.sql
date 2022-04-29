@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Mar-2022 às 00:19
+-- Tempo de geração: 29-Abr-2022 às 02:56
 -- Versão do servidor: 10.4.20-MariaDB
 -- versão do PHP: 8.0.8
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `revisao`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `cliente`
+--
+
+CREATE TABLE `cliente` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(150) NOT NULL,
+  `email` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `cliente`
+--
+
+INSERT INTO `cliente` (`id`, `nome`, `email`) VALUES
+(1, 'Ana Julia', 'ana@este.com'),
+(2, 'Emerson Camargo', 'emerson@este.com');
 
 -- --------------------------------------------------------
 
@@ -62,16 +82,17 @@ CREATE TABLE `produto` (
 
 INSERT INTO `produto` (`id`, `nomeproduto`, `quantidade`, `preco`, `vendido`) VALUES
 (2, 'Mouse Logitech', 32, 12.98, 10),
-(5, 'Impressora HP 1100W', 11, 245.78, 5),
+(5, 'Impressora HP', 11, 245.78, 5),
 (6, 'Monitor AOC 20\"', 22, 134.78, 8),
-(8, 'Mouse Pad Gamer', 54, 23.67, 9),
+(8, 'Mouse Pad Gamer', 54, 12.23, 9),
 (9, 'Cadeira Gamer TIK', 23, 345.89, 11),
 (10, 'Controle PS5', 11, 211.89, 3),
 (11, 'Monitor 22\" Sony', 8, 415.00, 3),
 (12, 'Teclado Dell', 12, 78.23, 6),
 (13, 'I7 3,40 Hz', 27, 560.11, 8),
 (14, 'Placa de Vídeo GTX 1600', 11, 780.00, 3),
-(15, 'Tela Gamer Nexus', 23, 12.23, 8);
+(15, 'Tela Gamer Nexus', 23, 12.23, 8),
+(16, 'Mouse Destiny', 13, 24.78, 2);
 
 -- --------------------------------------------------------
 
@@ -81,6 +102,7 @@ INSERT INTO `produto` (`id`, `nomeproduto`, `quantidade`, `preco`, `vendido`) VA
 
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
   `login` varchar(30) NOT NULL,
   `senha` varchar(30) NOT NULL,
   `tipo` varchar(50) NOT NULL
@@ -90,13 +112,21 @@ CREATE TABLE `usuario` (
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `login`, `senha`, `tipo`) VALUES
-(1, 'teste', 'teste', 'admin'),
-(3, 'teste2', 'teste2', 'normal');
+INSERT INTO `usuario` (`id`, `id_cliente`, `login`, `senha`, `tipo`) VALUES
+(1, 0, 'teste', 'teste', 'admin'),
+(3, 0, 'teste2', 'teste2', 'normal'),
+(4, 1, 'ana', 'dGVzdGU=', 'normal'),
+(5, 2, 'emerson', 'ZW1lcnNvbg==', 'normal');
 
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices para tabela `cliente`
+--
+ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `imagem`
@@ -121,6 +151,12 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de tabela `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de tabela `imagem`
 --
 ALTER TABLE `imagem`
@@ -130,13 +166,13 @@ ALTER TABLE `imagem`
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
